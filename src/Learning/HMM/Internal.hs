@@ -15,7 +15,6 @@ module Learning.HMM.Internal
   -- , posterior
   ) where
 
-import           Control.Applicative                     ( (<$>) )
 import           Control.DeepSeq                         ( NFData, force, rnf )
 import           Control.Monad                           ( forM_, replicateM )
 import           Control.Monad.ST                        ( runST )

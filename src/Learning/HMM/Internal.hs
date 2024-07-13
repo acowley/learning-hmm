@@ -68,7 +68,7 @@ init k l = do
     q_ = q k -- Error matrix
 
 withEmission :: HMM -> U.Vector Int -> HMM
-withEmission (model @ HMM {..}) xs = model'
+withEmission (model@HMM {..}) xs = model'
   where
     n  = U.length xs
     ss = [0..(nStates - 1)]
@@ -158,7 +158,7 @@ baumWelch' model xs = go (10000 :: Int) (undefined, -1/0) (baumWelch1 model n xs
 -- | Perform one step of the Baum-Welch algorithm and return the updated
 --   model and the likelihood of the old model.
 baumWelch1 :: HMM -> Int -> U.Vector Int -> (HMM, LogLikelihood)
-baumWelch1 (model @ HMM {..}) n xs = force (model', logL)
+baumWelch1 (model@HMM {..}) n xs = force (model', logL)
   where
     -- First, we calculate the alpha, beta, and scaling values using the
     -- forward-backward algorithm.

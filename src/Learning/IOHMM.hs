@@ -86,7 +86,7 @@ init is ss os = fromInternal is ss os <$> I.init (length is) (length ss) (length
 --   If the lengths of @xs@ and @ys@ are different, the longer one is cut
 --   by the length of the shorter one.
 withEmission :: (Eq i, Eq s, Eq o) => IOHMM i s o -> [i] -> [o] -> IOHMM i s o
-withEmission (model @ IOHMM {..}) xs ys = fromInternal inputs states outputs $ I.withEmission model' $ U.zip xs' ys'
+withEmission (model@IOHMM {..}) xs ys = fromInternal inputs states outputs $ I.withEmission model' $ U.zip xs' ys'
   where
     inputs'  = V.fromList inputs
     outputs' = V.fromList outputs
@@ -110,7 +110,7 @@ euclideanDistance model1 model2 =
 --   If the lengths of @xs@ and @ys@ are different, the longer one is cut
 --   by the length of the shorter one.
 viterbi :: (Eq i, Eq s, Eq o) => IOHMM i s o -> [i] -> [o] -> ([s], LogLikelihood)
-viterbi (model @ IOHMM {..}) xs ys =
+viterbi (model@IOHMM {..}) xs ys =
   checkModelIn "viterbi" model `seq`
   checkDataIn "viterbi" model xs ys `seq`
   first toStates $ I.viterbi model' $ U.zip xs' ys'
@@ -129,7 +129,7 @@ viterbi (model @ IOHMM {..}) xs ys =
 --   If the lengths of @xs@ and @ys@ are different, the longer one is cut
 --   by the length of the shorter one.
 baumWelch :: (Eq i, Eq s, Eq o) => IOHMM i s o -> [i] -> [o] -> [(IOHMM i s o, LogLikelihood)]
-baumWelch (model @ IOHMM {..}) xs ys =
+baumWelch (model@IOHMM {..}) xs ys =
   checkModelIn "baumWelch" model `seq`
   checkDataIn "baumWelch" model xs ys `seq`
   map (first $ fromInternal inputs states outputs) $ I.baumWelch model' $ U.zip xs' ys'
@@ -144,7 +144,7 @@ baumWelch (model @ IOHMM {..}) xs ys =
 --   inputs @xs@ and outputs @ys@, and returns a model locally maximizing
 --   its log likelihood.
 baumWelch' :: (Eq i, Eq s, Eq o) => IOHMM i s o -> [i] -> [o] -> (IOHMM i s o, LogLikelihood)
-baumWelch' (model @ IOHMM {..}) xs ys =
+baumWelch' (model@IOHMM {..}) xs ys =
   checkModelIn "baumWelch" model `seq`
   checkDataIn "baumWelch" model xs ys `seq`
   first (fromInternal inputs states outputs) $ I.baumWelch' model' $ U.zip xs' ys'

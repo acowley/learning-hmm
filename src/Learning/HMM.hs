@@ -77,7 +77,7 @@ init ss os = fromInternal ss os <$> I.init (length ss) (length os)
 --   which is calculated from segumentations of @xs@ based on the Viterbi
 --   state path.
 withEmission :: (Eq s, Eq o) => HMM s o -> [o] -> HMM s o
-withEmission (model @ HMM {..}) xs = fromInternal states outputs $ I.withEmission model' xs'
+withEmission (model@HMM {..}) xs = fromInternal states outputs $ I.withEmission model' xs'
   where
     outputs' = V.fromList outputs
     model'   = toInternal model
@@ -97,7 +97,7 @@ euclideanDistance model1 model2 =
 --   outputs @xs@, and returns the most likely state path and its log
 --   likelihood.
 viterbi :: (Eq s, Eq o) => HMM s o -> [o] -> ([s], LogLikelihood)
-viterbi (model @ HMM {..}) xs =
+viterbi (model@HMM {..}) xs =
   checkModelIn "viterbi" model `seq`
   checkDataIn "viterbi" model xs `seq`
   first toStates $ I.viterbi model' xs'
@@ -112,7 +112,7 @@ viterbi (model @ HMM {..}) xs =
 --   using the observed outputs @xs@, and returns a list of updated models
 --   and their corresponding log likelihoods.
 baumWelch :: (Eq s, Eq o) => HMM s o -> [o] -> [(HMM s o, LogLikelihood)]
-baumWelch (model @ HMM {..}) xs =
+baumWelch (model@HMM {..}) xs =
   checkModelIn "baumWelch" model `seq`
   checkDataIn "baumWelch" model xs `seq`
   map (first $ fromInternal states outputs) $ I.baumWelch model' xs'
@@ -125,7 +125,7 @@ baumWelch (model @ HMM {..}) xs =
 --   observed outputs @xs@, and returns a model locally maximizing its log
 --   likelihood.
 baumWelch' :: (Eq s, Eq o) => HMM s o -> [o] -> (HMM s o, LogLikelihood)
-baumWelch' (model @ HMM {..}) xs =
+baumWelch' (model@HMM {..}) xs =
   checkModelIn "baumWelch" model `seq`
   checkDataIn "baumWelch" model xs `seq`
   first (fromInternal states outputs) $ I.baumWelch' model' xs'

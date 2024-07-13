@@ -71,7 +71,7 @@ init m k l = do
     q_ = q k -- Error matrix
 
 withEmission :: IOHMM -> U.Vector (Int, Int) -> IOHMM
-withEmission (model @ IOHMM {..}) xys = model'
+withEmission (model@IOHMM {..}) xys = model'
   where
     n = U.length xys
     ss = [0..(nStates - 1)]
@@ -164,7 +164,7 @@ baumWelch' model xys = go (10000 :: Int) (undefined, -1/0) (baumWelch1 model n x
 -- | Perform one step of the Baum-Welch algorithm and return the updated
 --   model and the likelihood of the old model.
 baumWelch1 :: IOHMM -> Int -> U.Vector (Int, Int) -> (IOHMM, LogLikelihood)
-baumWelch1 (model @ IOHMM {..}) n xys = force (model', logL)
+baumWelch1 (model@IOHMM {..}) n xys = force (model', logL)
   where
     (xs, ys) = U.unzip xys
 
